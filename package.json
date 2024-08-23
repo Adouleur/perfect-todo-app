@@ -6,10 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "test": "vitest",
     "prepare": "husky"
   },
   "dependencies": {
+    "@coreui/vue": "^5.2.0",
+    "@testing-library/vue": "^8.1.0",
+    "@vitejs/plugin-vue": "^5.1.2",
     "@vue/test-utils": "^2.4.6",
+    "bootstrap": "^5.3.3",
     "core-js": "^3.8.3",
     "uuid": "^10.0.0",
     "vitest": "^2.0.5",
@@ -25,16 +30,18 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "husky": "^9.1.5",
+    "jsdom": "^24.1.1",
     "lint-staged": "^15.2.9",
     "prettier": "^3.3.3"
   },
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "vue/setup-compiler-macros": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
+      "plugin:vue/vue3-recommended",
       "eslint:recommended"
     ],
     "parserOptions": {

@@ -1,10 +1,13 @@
 <script setup>
 import { ref } from 'vue';
+import { useStore } from 'vuex';
+const store = useStore();
 
 const inputValue = ref('');
 const inputError = ref(false);
 
 const maxLength = 150;
+const addTodo = (value) => store.dispatch('addTodo', value);
 
 const handleTaskSubmit = () => {
   const trimmedValue = inputValue.value.trim();
@@ -12,6 +15,7 @@ const handleTaskSubmit = () => {
   if (trimmedValue.length === 0 || trimmedValue.length > maxLength) {
     inputError.value = true;
   } else {
+    addTodo(inputValue.value);
     inputValue.value = '';
     inputError.value = false;
   }
@@ -30,14 +34,12 @@ const handleKeyPress = (event) => {
     v-model="inputValue"
     placeholder="Enter a new task"
     :class="{ 'input-error': inputError }"
-    @keyup.enter="handleKeyPress"
+    @keydown="handleKeyPress"
   />
 </template>
 
 <style scoped>
 input {
-  max-width: 500px;
-  margin: 0 auto;
   width: 100%;
   padding: 16px 20px;
   font-size: 16px;
@@ -48,6 +50,6 @@ input {
 }
 
 .input-error {
-  border: 2px solid red;
+  outline: 2px solid red;
 }
 </style>
