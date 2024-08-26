@@ -3,12 +3,12 @@ import TodoPage from '@/components/pages/TodoPage.vue';
 </script>
 
 <template>
-  <TodoPage></TodoPage>
+  <TodoPage />
 </template>
 
 <style>
 body {
-  font-family: 'cursive', serif;
+  font-family: 'Open Sans', 'cursive', serif;
   background-color: #4158d0;
   background-image: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
   margin: 0;
