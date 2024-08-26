@@ -2,9 +2,11 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import TaskComponent from '@/components/molecules/ToDoComponent/ToDoComponent.vue';
+import InfoBoard from '@/components/molecules/InfoBoard.vue';
 
 const store = useStore();
 const todos = computed(() => store.getters.allTodos);
+const incompleteTodos = computed(() => store.getters.incompleteTodos);
 
 const updateTaskOrder = ({ id, targetId }) => {
   const tasks = [...todos.value];
@@ -34,15 +36,18 @@ const updateTaskOrder = ({ id, targetId }) => {
       @update:order="updateTaskOrder"
     />
   </div>
+  <InfoBoard :tasks-left="incompleteTodos.length" />
 </template>
 
 <style scoped>
 .wrapper {
+  background-color: white;
   margin-top: 20px;
+  border-radius: 8px 8px 0 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 325px;
 }
 </style>

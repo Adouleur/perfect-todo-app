@@ -41,8 +41,8 @@ const onDrop = (event) => {
 .toDo {
   position: relative;
   background-color: white;
-  margin: 0 auto;
-  width: 100%;
+  border-bottom: 1px solid gray;
+
   height: 60px;
   padding: 16px 20px;
   display: flex;
@@ -50,7 +50,6 @@ const onDrop = (event) => {
   align-items: center;
   justify-content: space-between;
   font-size: 16px;
-  border-radius: 8px;
   cursor: grab;
 }
 
