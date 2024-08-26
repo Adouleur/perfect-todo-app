@@ -8,7 +8,13 @@ const todos = store.getters.allTodos;
 
 <template>
   <div class="wrapper">
-    <TaskComponent v-for="todo in todos" :key="todo.id" :text="todo.title" />
+    <TaskComponent
+      v-for="todo in todos"
+      :key="todo.id"
+      :text="todo.title"
+      :completed="todo.completed"
+      :id="todo.id"
+    />
   </div>
 </template>
 
