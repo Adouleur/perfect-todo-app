@@ -13,10 +13,21 @@ const props = defineProps({
 const store = useStore();
 const toggleComplete = (id) => store.dispatch('toggleComplete', id);
 const deleteTodo = (id) => store.dispatch('deleteTodo', id);
+
+const emit = defineEmits(['update:order']);
+
+const onDragStart = (event) => {
+  event.dataTransfer.setData('text/plain', props.id);
+};
+
+const onDrop = (event) => {
+  const id = event.dataTransfer.getData('text/plain');
+  emit('update:order', { id: Number(id), targetId: props.id });
+};
 </script>
 
 <template>
-  <div class="toDo">
+  <div class="toDo" :draggable="true" @dragstart="onDragStart" @dragover.prevent @drop="onDrop">
     <div>
       <CFormCheck id="flexCheckChecked" :checked="completed" @change="toggleComplete(id)" />
       <span :class="{ completedTask: completed }">{{ text }}</span>
@@ -40,6 +51,7 @@ const deleteTodo = (id) => store.dispatch('deleteTodo', id);
   justify-content: space-between;
   font-size: 16px;
   border-radius: 8px;
+  cursor: grab;
 }
 
 #flexCheckChecked {

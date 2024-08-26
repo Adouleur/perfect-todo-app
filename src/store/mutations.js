@@ -10,5 +10,8 @@ export default {
   },
   deleteTodo(state, id) {
     state.todos = state.todos.filter((todo) => todo.id !== id);
+  },
+  updateTaskOrder(state, orderedIds) {
+    state.todos = orderedIds.map((id) => state.todos.find((task) => task.id === id));
   }
 };
