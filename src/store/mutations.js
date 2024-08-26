@@ -13,5 +13,8 @@ export default {
   },
   updateTaskOrder(state, orderedIds) {
     state.todos = orderedIds.map((id) => state.todos.find((task) => task.id === id));
+  },
+  setFilter(state, filter) {
+    state.filter = filter;
   }
 };
