@@ -7,5 +7,8 @@ export default {
   },
   deleteTodo({ commit }, id) {
     commit('deleteTodo', id);
+  },
+  updateTaskOrder({ commit }, id) {
+    commit('updateTaskOrder', id);
   }
 };
