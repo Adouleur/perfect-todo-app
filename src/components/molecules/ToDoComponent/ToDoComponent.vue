@@ -12,6 +12,7 @@ const props = defineProps({
 
 const store = useStore();
 const toggleComplete = (id) => store.dispatch('toggleComplete', id);
+const deleteTodo = (id) => store.dispatch('deleteTodo', id);
 </script>
 
 <template>
@@ -21,7 +22,7 @@ const toggleComplete = (id) => store.dispatch('toggleComplete', id);
       <span :class="{ completedTask: completed }">{{ text }}</span>
     </div>
 
-    <CCloseButton id="closeButton" class="delete-icon" />
+    <CCloseButton id="closeButton" class="delete-icon" @click="deleteTodo(id)" />
   </div>
 </template>
 

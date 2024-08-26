@@ -1,9 +1,10 @@
 <script setup>
 import { useStore } from 'vuex';
 import TaskComponent from '@/components/molecules/ToDoComponent/ToDoComponent.vue';
+import { computed } from 'vue';
 
 const store = useStore();
-const todos = store.getters.allTodos;
+const todos = computed(() => store.getters.allTodos);
 </script>
 
 <template>
