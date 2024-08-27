@@ -10,5 +10,8 @@ export default {
   },
   updateTaskOrder({ commit }, id) {
     commit('updateTaskOrder', id);
+  },
+  clearCompletedTodos({ commit }) {
+    commit('clearCompletedTodos');
   }
 };

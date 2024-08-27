@@ -16,5 +16,8 @@ export default {
   },
   setFilter(state, filter) {
     state.filter = filter;
+  },
+  clearCompletedTodos(state) {
+    state.todos = state.todos.filter((todo) => !todo.completed);
   }
 };
