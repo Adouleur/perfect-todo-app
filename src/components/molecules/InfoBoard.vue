@@ -23,11 +23,14 @@ const clearCompleted = () => store.dispatch('clearCompletedTodos');
         :key="filter"
         :class="{ active: currentFilter === filter }"
         @click="setFilter(filter)"
+        :data-cy="`filter-${filter}`"
       >
         {{ capitalizeFirstLetter(filter) }}
       </ButtonComponent>
 
-      <ButtonComponent @click="clearCompleted">Clear Completed</ButtonComponent>
+      <ButtonComponent @click="clearCompleted" data-cy="clear-completed"
+        >Clear Completed</ButtonComponent
+      >
     </div>
     <div class="tasks-left">{{ tasksLeft }} {{ tasksLeft === 1 ? 'task' : 'tasks' }} left</div>
   </div>
