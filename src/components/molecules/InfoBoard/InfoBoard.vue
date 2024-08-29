@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps } from 'vue';
 import { useStore } from 'vuex';
-import ButtonComponent from '@/components/atoms/ButtonComponent.vue';
+import ButtonComponent from '@/components/atoms/ButtonComponent/ButtonComponent.vue';
 import { filters } from '@/constants/constants';
 import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 
