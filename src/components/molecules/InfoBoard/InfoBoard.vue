@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue'; // Import computed from Vue
 import { useStore } from 'vuex';
 import ButtonComponent from '@/components/atoms/ButtonComponent/ButtonComponent.vue';
 import { filters } from '@/constants/constants';
@@ -13,6 +13,10 @@ const props = defineProps({
 
 const store = useStore();
 const clearCompleted = () => store.dispatch('clearCompletedTodos');
+
+const tasksLeftText = computed(() => {
+  return `${props.tasksLeft} ${props.tasksLeft === 1 ? 'task' : 'tasks'} left`;
+});
 </script>
 
 <template>
@@ -32,7 +36,7 @@ const clearCompleted = () => store.dispatch('clearCompletedTodos');
         >Clear Completed</ButtonComponent
       >
     </div>
-    <div class="tasks-left">{{ tasksLeft }} {{ tasksLeft === 1 ? 'task' : 'tasks' }} left</div>
+    <div class="tasks-left">{{ tasksLeftText }}</div>
   </div>
 </template>
 
