@@ -1,25 +1,39 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue'; // Import computed from Vue
+import { useStore } from 'vuex';
+import ButtonComponent from '@/components/atoms/ButtonComponent.vue';
+import { filters } from '@/constants/constants';
+import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 
 const props = defineProps({
   tasksLeft: { type: Number, required: true },
   setFilter: { type: Function, required: true },
   currentFilter: { type: String, required: true }
 });
+
+const store = useStore();
+const clearCompleted = () => store.dispatch('clearCompletedTodos');
+
+const tasksLeftText = computed(() => {
+  return `${props.tasksLeft} ${props.tasksLeft === 1 ? 'task' : 'tasks'} left`;
+});
 </script>
 
 <template>
   <div class="info-board">
     <div class="filters">
-      <button :class="{ active: currentFilter === 'all' }" @click="setFilter('all')">All</button>
-      <button :class="{ active: currentFilter === 'active' }" @click="setFilter('active')">
-        Active
-      </button>
-      <button :class="{ active: currentFilter === 'completed' }" @click="setFilter('completed')">
-        Completed
-      </button>
+      <ButtonComponent
+        v-for="filter in filters"
+        :key="filter"
+        :class="{ active: currentFilter === filter }"
+        @click="setFilter(filter)"
+      >
+        {{ capitalizeFirstLetter(filter) }}
+      </ButtonComponent>
+
+      <ButtonComponent @click="clearCompleted">Clear Completed</ButtonComponent>
     </div>
-    <div class="tasks-left">{{ tasksLeft }} {{ tasksLeft === 1 ? 'task' : 'tasks' }} left</div>
+    <div class="tasks-left">{{ tasksLeftText }}</div>
   </div>
 </template>
 
@@ -37,13 +51,6 @@ const props = defineProps({
 .filters {
   display: flex;
   gap: 10px;
-}
-
-button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 button.active {
