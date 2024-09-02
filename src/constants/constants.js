@@ -1,1 +1,1 @@
-export const filters = Object.freeze(['all', 'active', 'completed']);
+export const filters = ['all', 'active', 'completed'];
