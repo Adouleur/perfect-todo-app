@@ -34,6 +34,7 @@ const handleKeyPress = (event) => {
     v-model="inputValue"
     placeholder="Enter a new task"
     :class="{ 'input-error': inputError }"
+    data-cy="add-task"
     @keydown="handleKeyPress"
   />
 </template>

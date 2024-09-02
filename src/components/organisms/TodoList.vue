@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import TaskComponent from '@/components/molecules/ToDoComponent/ToDoComponent.vue';
-import InfoBoard from '@/components/molecules/InfoBoard.vue';
+import InfoBoard from '@/components/molecules/InfoBoard/InfoBoard.vue';
 
 const store = useStore();
 

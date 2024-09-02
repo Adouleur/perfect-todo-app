@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, computed } from 'vue'; // Import computed from Vue
 import { useStore } from 'vuex';
-import ButtonComponent from '@/components/atoms/ButtonComponent.vue';
+import ButtonComponent from '@/components/atoms/ButtonComponent/ButtonComponent.vue';
 import { filters } from '@/constants/constants';
 import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 
@@ -27,11 +27,14 @@ const tasksLeftText = computed(() => {
         :key="filter"
         :class="{ active: currentFilter === filter }"
         @click="setFilter(filter)"
+        :data-cy="`filter-${filter}`"
       >
         {{ capitalizeFirstLetter(filter) }}
       </ButtonComponent>
 
-      <ButtonComponent @click="clearCompleted">Clear Completed</ButtonComponent>
+      <ButtonComponent @click="clearCompleted" data-cy="clear-completed"
+        >Clear Completed</ButtonComponent
+      >
     </div>
     <div class="tasks-left">{{ tasksLeftText }}</div>
   </div>

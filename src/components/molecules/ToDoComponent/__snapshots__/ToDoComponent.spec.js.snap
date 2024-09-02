@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ToDo Component > matches the snapshot 1`] = `
+"<div data-v-3fcbac7f="" class="toDo" data-cy="task-item" draggable="true">
+  <div data-v-3fcbac7f="">
+    <!-- Add data-cy to the checkbox --><input data-v-3fcbac7f="" data-cy="complete-checkbox" class="form-check-input" id="flexCheckChecked" type="checkbox"><span data-v-3fcbac7f="" class="" data-cy="task-text">Sample</span>
+  </div><button data-v-3fcbac7f="" type="button" class="btn btn-close delete-icon" aria-label="Close" id="closeButton" data-cy="delete-button"></button>
+</div>"
+`;

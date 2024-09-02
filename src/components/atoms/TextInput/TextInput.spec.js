@@ -6,6 +6,7 @@ import MyComponent from '@/components/atoms/TextInput/TextInput.vue';
 describe('MyComponent.vue', () => {
   let store;
   let actions;
+  let wrapper;
 
   beforeEach(() => {
     actions = {
@@ -19,16 +20,20 @@ describe('MyComponent.vue', () => {
       }
     });
   });
+  wrapper = mount(MyComponent, {
+    global: {
+      plugins: [store]
+    }
+  });
 
   it('should render the input field correctly', () => {
-    const wrapper = mount(MyComponent, {
-      global: {
-        plugins: [store]
-      }
-    });
     const input = wrapper.find('input');
 
     expect(input.exists()).toBe(true);
     expect(input.element.placeholder).toBe('Enter a new task');
+  });
+
+  it('matches the snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

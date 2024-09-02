@@ -27,13 +27,31 @@ const onDrop = (event) => {
 </script>
 
 <template>
-  <div class="toDo" :draggable="true" @dragstart="onDragStart" @dragover.prevent @drop="onDrop">
+  <div
+    class="toDo"
+    data-cy="task-item"
+    :draggable="true"
+    @dragstart="onDragStart"
+    @dragover.prevent
+    @drop="onDrop"
+  >
     <div>
-      <CFormCheck id="flexCheckChecked" :checked="completed" @change="toggleComplete(id)" />
-      <span :class="{ completedTask: completed }">{{ text }}</span>
+      <!-- Add data-cy to the checkbox -->
+      <CFormCheck
+        id="flexCheckChecked"
+        :checked="completed"
+        @change="toggleComplete(id)"
+        data-cy="complete-checkbox"
+      />
+      <span :class="{ completedTask: completed }" data-cy="task-text">{{ text }}</span>
     </div>
 
-    <CCloseButton id="closeButton" class="delete-icon" @click="deleteTodo(id)" />
+    <CCloseButton
+      id="closeButton"
+      class="delete-icon"
+      @click="deleteTodo(id)"
+      data-cy="delete-button"
+    />
   </div>
 </template>
 
