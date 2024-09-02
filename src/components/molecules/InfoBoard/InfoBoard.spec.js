@@ -9,9 +9,9 @@ describe('InfoBoard.vue', () => {
   let actions;
   let mutations;
   let store;
+  let wrapper;
 
   beforeEach(() => {
-    // Mock the Vuex store
     actions = {
       clearCompletedTodos: vi.fn()
     };
@@ -20,81 +20,50 @@ describe('InfoBoard.vue', () => {
     };
     store = createStore({
       state: {
-        filter: filters[0] // Default filter
+        filter: filters[0]
       },
       actions,
       mutations,
       getters: {
-        incompleteTodos: () => 3 // Assume 3 incomplete tasks
+        incompleteTodos: () => 3
+      }
+    });
+
+    wrapper = mount(InfoBoard, {
+      props: {
+        tasksLeft: 3,
+        setFilter: vi.fn(),
+        currentFilter: filters[0]
+      },
+      global: {
+        plugins: [store]
       }
     });
   });
 
   it('renders the correct number of tasks left', () => {
-    const wrapper = mount(InfoBoard, {
-      props: {
-        tasksLeft: 3,
-        setFilter: vi.fn(),
-        currentFilter: filters[0]
-      },
-      global: {
-        plugins: [store]
-      }
-    });
-
-    // Check if the tasks left count is rendered correctly
     expect(wrapper.find('.tasks-left').text()).toBe('3 tasks left');
   });
 
   it('calls the setFilter method when a filter button is clicked', async () => {
-    const setFilter = vi.fn();
-    const wrapper = mount(InfoBoard, {
-      props: {
-        tasksLeft: 3,
-        setFilter,
-        currentFilter: filters[0]
-      },
-      global: {
-        plugins: [store]
-      }
-    });
+    const setFilter = wrapper.props().setFilter;
 
     const button = wrapper.findAllComponents(ButtonComponent).at(0); // First filter button
     await button.trigger('click');
 
-    // Check if the setFilter function is called with the correct argument
     expect(setFilter).toHaveBeenCalledWith(filters[0]);
   });
 
   it('dispatches the clearCompletedTodos action when "Clear Completed" button is clicked', async () => {
-    const wrapper = mount(InfoBoard, {
-      props: {
-        tasksLeft: 3,
-        setFilter: vi.fn(),
-        currentFilter: filters[0]
-      },
-      global: {
-        plugins: [store]
-      }
-    });
-
     const clearCompletedButton = wrapper.find('[data-cy="clear-completed"]');
     await clearCompletedButton.trigger('click');
 
-    // Check if the store action is dispatched correctly
     expect(actions.clearCompletedTodos).toHaveBeenCalled();
   });
 
-  it('renders the correct filter buttons and applies the active class', () => {
-    const wrapper = mount(InfoBoard, {
-      props: {
-        tasksLeft: 3,
-        setFilter: vi.fn(),
-        currentFilter: filters[1] // Assuming the active filter is the second one
-      },
-      global: {
-        plugins: [store]
-      }
+  it('renders the correct filter buttons and applies the active class', async () => {
+    await wrapper.setProps({
+      currentFilter: filters[1]
     });
 
     const buttons = wrapper.findAllComponents(ButtonComponent);
@@ -104,5 +73,9 @@ describe('InfoBoard.vue', () => {
         expect(buttons.at(index).classes()).toContain('active');
       }
     });
+  });
+
+  it('matches the snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

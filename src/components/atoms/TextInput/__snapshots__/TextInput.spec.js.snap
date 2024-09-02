@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MyComponent.vue > matches the snapshot 1`] = `"<input data-v-bcaf8368="" type="text" placeholder="Enter a new task" class="" data-cy="add-task">"`;

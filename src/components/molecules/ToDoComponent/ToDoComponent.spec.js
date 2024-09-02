@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import ToDo from '@/components/molecules/ToDoComponent/ToDoComponent.vue';
 import { createStore } from 'vuex';
@@ -13,69 +13,49 @@ const store = createStore({
 });
 
 describe('ToDo Component', () => {
-  it('renders the text prop correctly', () => {
-    const text = 'Sample ToDo';
-    const wrapper = mount(ToDo, {
-      global: {
-        plugins: [store]
-      },
-      props: { text, completed: false, id: 1 }
-    });
-    expect(wrapper.text()).toContain(text);
-  });
+  let wrapper;
 
-  it('renders a CFormCheck checkbox', () => {
-    const wrapper = mount(ToDo, {
+  beforeEach(() => {
+    wrapper = mount(ToDo, {
       global: {
         plugins: [store]
       },
       props: { text: 'Sample', completed: false, id: 1 }
     });
+  });
+
+  it('renders the text prop correctly', () => {
+    expect(wrapper.text()).toContain('Sample');
+  });
+
+  it('renders a CFormCheck checkbox', () => {
     const checkbox = wrapper.findComponent({ name: 'CFormCheck' });
     expect(checkbox.exists()).toBe(true);
   });
 
   it('renders a CCloseButton button', () => {
-    const wrapper = mount(ToDo, {
-      global: {
-        plugins: [store]
-      },
-      props: { text: 'Sample', completed: false, id: 1 }
-    });
     const closeButton = wrapper.findComponent({ name: 'CCloseButton' });
     expect(closeButton.exists()).toBe(true);
   });
 
   it('contains a checkbox with correct id', () => {
-    const wrapper = mount(ToDo, {
-      global: {
-        plugins: [store]
-      },
-      props: { text: 'Sample', completed: false, id: 1 }
-    });
     const checkbox = wrapper.find('#flexCheckChecked');
     expect(checkbox.exists()).toBe(true);
   });
 
-  it('applies completedTask class when completed prop is true', () => {
-    const wrapper = mount(ToDo, {
-      global: {
-        plugins: [store]
-      },
-      props: { text: 'Sample', completed: true, id: 1 }
-    });
+  it('applies completedTask class when completed prop is true', async () => {
+    await wrapper.setProps({ completed: true });
     const span = wrapper.find('span');
     expect(span.classes()).toContain('completedTask');
   });
 
-  it('does not apply completedTask class when completed prop is false', () => {
-    const wrapper = mount(ToDo, {
-      global: {
-        plugins: [store]
-      },
-      props: { text: 'Sample', completed: false, id: 1 }
-    });
+  it('does not apply completedTask class when completed prop is false', async () => {
+    await wrapper.setProps({ completed: false });
     const span = wrapper.find('span');
     expect(span.classes()).not.toContain('completedTask');
+  });
+
+  it('matches the snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

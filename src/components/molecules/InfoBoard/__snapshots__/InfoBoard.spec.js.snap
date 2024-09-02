@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InfoBoard.vue > matches the snapshot 1`] = `
+"<div data-v-41083afe="" class="info-board">
+  <div data-v-41083afe="" class="filters"><button data-v-79b848db="" data-v-41083afe="" type="button" class="active" data-cy="filter-all">All</button><button data-v-79b848db="" data-v-41083afe="" type="button" class="" data-cy="filter-active">Active</button><button data-v-79b848db="" data-v-41083afe="" type="button" class="" data-cy="filter-completed">Completed</button><button data-v-79b848db="" data-v-41083afe="" type="button" class="" data-cy="clear-completed">Clear Completed</button></div>
+  <div data-v-41083afe="" class="tasks-left">3 tasks left</div>
+</div>"
+`;
